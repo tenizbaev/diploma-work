@@ -1,39 +1,25 @@
 import React, { Component } from 'react';
-
-import Toolbar from './components/Toolbar/Toolbar';
-import SideDrawer from './components/SideDrawer/SideDrawer';
-import Backdrop from './components/Backdrop/Backdrop';
+import { BrowserRouter, Route } from 'react-router-dom';
+import Home from './containers/Home/Home'
+import Rooms from './containers/Rooms/Rooms'
+import Book from './containers/Book/Book'
+import Layout from './containers/Layout/Layout';
+import Map from './containers/Map/Map'
+import Contacts from './containers/Contacts/Contacts'
 
 class App extends Component {
-  state = {
-    sideDrawerOpen: false
-  };
-
-  drawerToggleClickHandler = () => {
-    this.setState((prevState) => {
-      return {sideDrawerOpen: !prevState.sideDrawerOpen};
-    });
-  };
-
-  backdropClickHandler = () => {
-    this.setState({sideDrawerOpen: false});
-  };
-
   render() {
-    let backdrop;
-
-    if (this.state.sideDrawerOpen) {
-      backdrop = <Backdrop click={this.backdropClickHandler} />
-    }
     return (
-      <div style={{height: '100%'}}>
-        <Toolbar drawerClickHandler={this.drawerToggleClickHandler} />
-        <SideDrawer show={this.state.sideDrawerOpen} />
-        {backdrop}
-        <main style={{marginTop: '64px'}}>
-          <p>This is the page content!</p>
-        </main>
-        
+      <div className="App">
+        <BrowserRouter>
+          <Layout>
+            <Route path="/" component={Home} exact />
+            <Route path="/Rooms" component={Rooms} />
+            <Route path="/Book" component={Book} />
+            <Route path="/Map" component={Map} />
+            <Route path="/Contacts" component={Contacts} />
+          </Layout>
+        </BrowserRouter>
       </div>
     );
   }

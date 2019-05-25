@@ -1,18 +1,38 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
+import React from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
-import reducer from './store/reducer';
+import "assets/vendor/font-awesome/css/font-awesome.min.css";
+import "assets/scss/argon-design-system-react.scss";
 
-const store = createStore(reducer);
+import Index from "views/Index.jsx";
+import Book from "views/pages/Book.jsx";
+import Map from "views/pages/Map.jsx";
+import Rooms from "views/pages/Rooms.jsx";
+import Contacts from "views/pages/Contacts.jsx";
 
-ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+ReactDOM.render(
+  <BrowserRouter>
+    <Switch>
+      <Route path="/" exact render={props => <Index {...props} />} />
+      <Route
+        path="/Contacts"
+        exact
+        render={props => <Contacts {...props} />}
+      />
+      <Route path="/Map" exact render={props => <Map {...props} />} />
+      <Route
+        path="/book"
+        exact
+        render={props => <Book {...props} />}
+      />
+      <Route
+        path="/rooms"
+        exact
+        render={props => <Rooms {...props} />}
+      />
+      <Redirect to="/" />
+    </Switch>
+  </BrowserRouter>,
+  document.getElementById("root")
+);
